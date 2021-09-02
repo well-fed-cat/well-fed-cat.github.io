@@ -1,8 +1,11 @@
 # Well Fed Cat
 
-Some words about well-fed-cat project
+This website is not about "Well Fed Cat" and not even about
+its development. It is rather just a bunch of notes, which I made
+for myself.
 
 
-# Additional Info
 
-Some more stuff
+# TODO
+
+* Add here real todo.
