@@ -4,6 +4,8 @@ This website is not about "Well Fed Cat" and not even about
 its development. It is rather just a bunch of notes, which I made
 for myself.
 
+Well-Fed-Cat on GitHub: [https://github.com/well-fed-cat](https://github.com/well-fed-cat)
+
 
 
 ## TODO ##
