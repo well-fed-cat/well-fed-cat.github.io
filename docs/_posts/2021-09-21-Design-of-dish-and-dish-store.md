@@ -55,7 +55,7 @@ DishStore. But even the notion of "being equal" is not smnple and
 will be discussed in next section.
 
 
-## Equality and inequality of dishes
+### Equality and inequality of dishes
 
 What defines "identity" and "equality" of dishes? One could say, that
 equality of dishes means, that all fields of the object shoould be the equal.
