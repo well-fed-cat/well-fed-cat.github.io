@@ -147,4 +147,6 @@ The Dish object will have the following properties (for now):
 * id - (was not discussed) - special name to use in interactive console
 * strong-id - globally unique identifier of the dish
 * version - way to deal with staging and concurrent access
-* ??? - way to notice, that the object was modified, but not saved
+* To avoid possibility of "dirty" objects only store may change them. For this
+  we need to provide also an object, which would combine all desired changes
+  in one.
