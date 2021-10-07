@@ -62,6 +62,8 @@ equality of dishes means, that all fields of the object shoould be the equal.
 Or that it should just be the same object. Alternatively dish could have
 some id and we may consider two objects equal, if the IDs are equal.
 
+#### Strong ID
+
 Indeed, our dish will have some global ID (strong ID). And we will try
 to shape our system in such a way, that it is impossible, that there are
 two objects, which represent different dishes, that have same strong-IDs.
@@ -80,23 +82,37 @@ To acheive this, the following conditions should be acheived:
   be fully fixed (at least without having a way to get notifications from
   the DB, when some dish was modified). But this problem can be addressed
   and it's negative consequences may be significantly reduced or even
-  eliminated by using the following additional rules:
+  eliminated by using the following additional ideas:
 
-  * Most important is, that one should not get to details of the dish,
-    unless it is really needed. E.g. In menu the dishes can be represented
-    just by their strong-ids, and only, when one needs to show the menu
-    to the user, then actual names are loaded from the DB.
+  * We should eliminate possibility to use "dirty" objects (i.e. those,
+    which were modified, but not yet persisted in the store). To acheive
+    this we can enforce, that the modification can only be done by a
+    store itself. For this we would introduce an object, which describes
+    desired change and store operation, which applies this change to
+    give dish specified either by dish object or by dish strong id.
 
-  * Dish objects (except strong-ids) should be short-living. I.e. they should
-    be retreived from the DB for the specific task and then dismissed as
-    soon as this task is completed.
+  * Once this is done, we guarantee, that the objects with the same
+    strong id and version must be equal. It allows us to compare for
+    equality by just using strong ids, assuming, that the versions
+    are the same. From the domain point of view having two objects
+    of the same dish with different versions in the same context is
+    a logical error. This should never happen. As such to enforce it
+    we may implement method `equal()` in such a way, that it throws,
+    if two objects have same strict id and different versions.
 
-  * As an additional protective measure we may try to implement mechanism,
-    which prohibit using of "dirty" (i.e. modified, but not saved objects)
-    for anything except modification and saving. Note, however, that it does
-    not guarantee, that all objects are up to date. It only should prevent
-    cases, when the object was modified, but by mistake was not save, but
-    was immeditately used for some other purpose.
+  * These two points provide some ideas, how to avoid exception described
+    in previous point:
+
+    * Most important is, that one should not get to details of the dish,
+      unless it is really needed. E.g. In menu the dishes can be represented
+      just by their strong-ids, and only, when one needs to show the menu
+      to the user, then actual names are loaded from the DB.
+
+    * Dish objects (except strong-ids) should be short-living. I.e. they should
+      be retreived from the DB for the specific task and then dismissed as
+      soon as this task is completed.
+
+#### Name
 
 What about dish name? Is it possible to have two dishes with different
 strong IDs but with the same names? This is not desirable, because
